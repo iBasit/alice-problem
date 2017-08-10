@@ -1,0 +1,5 @@
+AppBundle\Entity\Detail:
+
+    detail_{1..10}:
+        user:             "@user_<current()>"
+        address:          <address()>
