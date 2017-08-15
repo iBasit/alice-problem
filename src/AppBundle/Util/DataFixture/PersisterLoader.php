@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AppBundle\Util;
+namespace AppBundle\Util\DataFixture;
 
 
 use AppBundle\Entity\Detail;
@@ -46,6 +46,7 @@ use Nelmio\Alice\IsAServiceTrait;
      */
     public function __construct(LoaderInterface $decoratedLoader, PersisterInterface $persister, array $processors)
     {
+        var_dump(get_class($persister)); // check which method is loaded
         $this->loader = $decoratedLoader;
         $this->persister = $persister;
         $this->processors = (function (ProcessorInterface ...$processors) {
@@ -78,6 +79,7 @@ use Nelmio\Alice\IsAServiceTrait;
             foreach ($this->processors as $processor) {
                 $processor->preProcess($id, $object);
             }
+
             $this->persister->persist($object);
         }
 
@@ -91,6 +93,7 @@ use Nelmio\Alice\IsAServiceTrait;
             foreach ($this->processors as $processor) {
                 $processor->preProcess($id, $object);
             }
+
             $this->persister->persist($object);
         }
         $this->persister->flush();

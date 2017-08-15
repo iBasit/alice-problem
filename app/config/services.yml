@@ -34,9 +34,15 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
-
     fidry_alice_data_fixtures.doctrine.persister_loader:
-          class: AppBundle\Util\PersisterLoader
-          arguments:
-            - "@fidry_alice_data_fixtures.loader.multipass_file"
-            - "@fidry_alice_data_fixtures.persistence.persister.doctrine.object_manager_persister"
+        class: AppBundle\Util\DataFixture\PersisterLoader
+        arguments:
+          - "@fidry_alice_data_fixtures.loader.multipass_file"
+          - "@fidry_alice_data_fixtures.persistence.persister.doctrine.object_manager_persister"
+
+
+    fidry_alice_data_fixtures.persistence.persister.doctrine.object_manager_persister:
+        class: AppBundle\Util\DataFixture\ObjectManagerPersister
+        arguments:
+          - "@doctrine.orm.entity_manager"
+
